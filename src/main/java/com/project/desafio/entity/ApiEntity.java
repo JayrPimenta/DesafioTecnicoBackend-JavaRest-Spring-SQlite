@@ -27,12 +27,13 @@ public class ApiEntity implements Serializable{
 	@Id
 	@NotNull
 	private Integer logic;
+	
 	@NotNull
 	private String serial;
-	private Integer sam;
-	private String ptid;
 	@NotNull
 	private String model;
+	private Integer sam;
+	private String ptid;
 	private Integer plat;
 	@NotNull
 	private String version;

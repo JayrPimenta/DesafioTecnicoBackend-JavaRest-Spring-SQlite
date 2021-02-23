@@ -14,7 +14,23 @@ public class ApiService {
 	@Autowired
 	public ApiRepositories repositorie;
 	
-	public List<ApiEntity> listarTodos(){	
+	@Autowired
+	private UpdateData updateEntity;
+	
+	public List<ApiEntity> findAll(){	
 		return repositorie.findAll();
+	}
+	
+	public void insert(ApiEntity textBody) {
+		repositorie.save(textBody);
+	}
+	
+	public ApiEntity findById(Integer logic) {
+		return repositorie.findById(logic).orElse(null);
+	}
+	
+	public void update(ApiEntity entity, ApiEntity objectJson) {
+		updateEntity.updateDataEntity(entity, objectJson);
+		repositorie.save(entity);
 	}
 }
