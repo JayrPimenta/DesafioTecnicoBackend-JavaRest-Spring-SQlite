@@ -1,4 +1,4 @@
-package com.project.desafio.exception;
+package com.project.desafio.response;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class ApiErrorDesign implements Serializable {
+public class ApiErrorResponse implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Instant timestamp;

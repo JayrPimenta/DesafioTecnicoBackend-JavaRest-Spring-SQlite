@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.project.desafio.entity.ApiEntity;
 import com.project.desafio.exception.ResourceValidationException;
 import com.project.desafio.service.ApiService;
-import com.project.desafio.service.TextBodyConverter;
+import com.project.desafio.service.TextBodyConverterService;
 
 @SpringBootTest
 public class ApiTest {
@@ -22,7 +22,7 @@ public class ApiTest {
 	private ApiService service;
 	
 	@Autowired
-	private TextBodyConverter textBodyConverter;
+	private TextBodyConverterService textBodyConverter;
 	
 	private ApiEntity entity;
 	
@@ -41,15 +41,16 @@ public class ApiTest {
 	
 	@Test
 	public void expectedBodyConverted() {
-		entity = textBodyConverter.converter("1;a;b;2;c;3;d;4;5;e");
+		entity = textBodyConverter.fromStringRequestToEntity("1;a;b;2;c;3;d;4;5;e");
 		assertEquals(Integer.valueOf(2), entity.getSam());
 		assertNotNull(entity);
 	}
 	
 	@Test
 	public void expectedBodyConvertedException() {
-		assertThrows(ResourceValidationException.class, () -> { textBodyConverter.converter(";a;b;2;c;3;d;4;5;e");});
+		assertThrows(ResourceValidationException.class, () -> { textBodyConverter.fromStringRequestToEntity(";a;b;2;c;3;d;4;5;e");});
 	}
+	
 	
 	
 

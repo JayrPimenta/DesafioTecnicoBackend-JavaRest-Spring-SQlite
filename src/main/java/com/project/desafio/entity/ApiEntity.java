@@ -14,12 +14,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "tabela_entidades")
 public class ApiEntity implements Serializable{

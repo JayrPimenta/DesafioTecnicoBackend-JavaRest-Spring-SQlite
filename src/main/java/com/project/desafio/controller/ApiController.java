@@ -7,7 +7,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ import com.project.desafio.entity.ApiEntity;
 import com.project.desafio.exception.ResourceNotFoundException;
 import com.project.desafio.exception.ResourceValidationException;
 import com.project.desafio.service.ApiService;
-import com.project.desafio.service.TextBodyConverter;
+import com.project.desafio.service.TextBodyConverterService;
 
 
 
@@ -39,7 +38,7 @@ public class ApiController {
 	private ApiService service;
 	
 	@Autowired
-	private TextBodyConverter textBodyConverter;
+	private TextBodyConverterService textBodyConverter;
 	
 	@GetMapping("/findAll")
 	public ResponseEntity<List<ApiEntity>> findAll(){	
@@ -61,11 +60,11 @@ public class ApiController {
 	@PostMapping(path = "/insert", consumes = MediaType.TEXT_HTML_VALUE) // Consumes aceita somente receber text via html;
 	public String insert(@Valid @RequestBody String textBody) {
 		try {
-			ApiEntity entidadeTextBody = textBodyConverter.converter(textBody); // Converte a String recebida no body no endpoint
+			ApiEntity entidadeTextBody = textBodyConverter.fromStringRequestToEntity(textBody); // Converte a String recebida no body no endpoint
 			if (service.findById(entidadeTextBody.getLogic()) != null) {
-				throw new ResourceNotFoundException("Dados já existentes no banco. Caso deseje alterá-los,  favor utilizar o método PUT com URL update/”campo logic”");
+				throw new ResourceValidationException("Dados já existentes no banco. Caso deseje alterá-los,  favor utilizar o método PUT com URL update/”campo logic”");
 			} else {
-				service.insert(entidadeTextBody); // Envia para o service inserir no BD
+				service.insert(entidadeTextBody); // Envia o objeto para o service inserir no BD
 				return "Cadastrado com sucesso";
 			}
 		}  catch (TransactionSystemException e) {
@@ -87,8 +86,6 @@ public class ApiController {
 			}
 		} catch (TransactionSystemException e) {
 			throw new ResourceValidationException(e.getMostSpecificCause().getMessage());
-		} catch (JsonParseException e) {
-			throw new RuntimeException("teste");
 		}
 	}
 }

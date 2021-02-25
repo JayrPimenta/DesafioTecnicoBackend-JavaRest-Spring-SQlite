@@ -15,7 +15,7 @@ public class ApiService {
 	public ApiRepositories repositorie;
 	
 	@Autowired
-	private UpdateData updateEntity;
+	private TextBodyConverterService textBodyConverterService;
 	
 	public List<ApiEntity> findAll(){	
 		return repositorie.findAll();
@@ -30,7 +30,7 @@ public class ApiService {
 	}
 	
 	public void update(ApiEntity entity, ApiEntity objectJson) {
-		updateEntity.updateDataEntity(entity, objectJson);
+		textBodyConverterService.fromUpdateJsonRequestToEntity(entity, objectJson);
 		repositorie.save(entity);
 	}
 }
