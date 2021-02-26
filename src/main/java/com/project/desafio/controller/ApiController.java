@@ -34,11 +34,6 @@ public class ApiController {
 	@Autowired
 	private ApiService service;
 	
-	@GetMapping(value="/testeHeroku")
-	public String testeHeroku() {
-		return "O problema é o postgres";
-	}
-	
 	@GetMapping(value="/entidades")
 	public ResponseEntity<List<ApiEntity>> findAll(){	
 		List<ApiEntity> listaDeEntidades = service.findAll(); // Carrega todos os dados do BD sem critério
