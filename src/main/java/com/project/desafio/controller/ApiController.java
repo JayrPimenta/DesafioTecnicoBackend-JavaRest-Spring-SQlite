@@ -34,7 +34,7 @@ public class ApiController {
 	@Autowired
 	private ApiService service;
 	
-	@GetMapping("/entidade")
+	@GetMapping("/entidades")
 	public ResponseEntity<List<ApiEntity>> findAll(){	
 		List<ApiEntity> listaDeEntidades = service.findAll(); // Carrega todos os dados do BD sem critério
 		return ResponseEntity.ok().body(listaDeEntidades);
