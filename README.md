@@ -6,19 +6,19 @@ Aplicação de back-end básico utilizando Java 11, Spring Boot, Spring Data e S
 
 >Retorna todos os registros do banco
 
-http://localhost:8080/v1.0/entidades (GET)
+https://api-desafio-backend.herokuapp.com/v1.0/entidades (GET)
 
 ---
 
 >Retorna a entidade correspondente ao seu identificador ‘logic’
 
-http://localhost:8080/v1.0/entidade/{logic} (GET) 
+https://api-desafio-backend.herokuapp.com/v1.0/entidade/{logic} (GET) 
 
 ---
 
 >Insere objeto entidade no banco de dados.
 
-http://localhost:8080/v1.0/entidade (POST) 
+https://api-desafio-backend.herokuapp.com/v1.0/entidade (POST) 
 
 Apenas modelo 
 <code>Content-Type:Text/HTML: logic;serial;model;sam;ptid;plat;version;mxr;mxf;VERFM</code>
@@ -32,7 +32,7 @@ Será aceito pelo validador.
 
 >Atualiza uma entidade do banco com os dados
 
-http://localhost:8080/v1.0/entidade/{logic} (PUT)
+https://api-desafio-backend.herokuapp.com/v1.0/entidade/{logic} (PUT)
 
 Dados devem ser formatados para JSON no Body onde o identificador ‘logic’ seja correspondente.
 
