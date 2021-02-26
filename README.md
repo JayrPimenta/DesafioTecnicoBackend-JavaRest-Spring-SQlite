@@ -6,7 +6,7 @@ Aplicação de back-end básico utilizando Java 11, Spring Boot, Spring Data e S
 
 >Retorna todos os registros do banco
 
-http://localhost:8080/v1.0/entidade (GET)
+http://localhost:8080/v1.0/entidades (GET)
 
 ---
 
