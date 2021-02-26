@@ -27,14 +27,14 @@ import com.project.desafio.service.ApiService;
 
 
 @RestController
-@RequestMapping("/v1.0")
+@RequestMapping(value="/v1.0")
 @Validated
 public class ApiController {
 
 	@Autowired
 	private ApiService service;
 	
-	@GetMapping("/entidades")
+	@GetMapping(value="/entidades")
 	public ResponseEntity<List<ApiEntity>> findAll(){	
 		List<ApiEntity> listaDeEntidades = service.findAll(); // Carrega todos os dados do BD sem critério
 		return ResponseEntity.ok().body(listaDeEntidades);
