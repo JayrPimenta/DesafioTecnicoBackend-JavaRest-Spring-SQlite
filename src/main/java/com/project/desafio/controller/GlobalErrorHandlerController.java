@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.project.desafio.exception.ApiDesafioException;
 import com.project.desafio.exception.ResourceNotFoundException;
 import com.project.desafio.exception.ResourceValidationException;
 import com.project.desafio.response.ApiErrorResponse;
@@ -28,6 +29,14 @@ public class GlobalErrorHandlerController {
 	public ResponseEntity<ApiErrorResponse> validationException(ResourceValidationException exception, HttpServletRequest request){
 		String erro = "Falha na validação";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ApiErrorResponse errorDesign = new ApiErrorResponse(Instant.now(), status.value(), erro, exception.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(errorDesign);
+	}
+	
+	@ExceptionHandler(ApiDesafioException.class)
+	public ResponseEntity<ApiErrorResponse> apiDesafioException(ApiDesafioException exception, HttpServletRequest request){
+		String erro = "Erro:";
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 		ApiErrorResponse errorDesign = new ApiErrorResponse(Instant.now(), status.value(), erro, exception.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(errorDesign);
 	}

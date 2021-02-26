@@ -1,10 +1,12 @@
 package com.project.desafio.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.project.desafio.entity.ApiEntity;
+import com.project.desafio.exception.ApiDesafioException;
 import com.project.desafio.exception.ResourceValidationException;
 import com.project.desafio.repositories.ApiRepositories;
 
@@ -24,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TextBodyConverterService {
 
 	@Autowired
-	public ApiRepositories repositorie;
+	private ApiRepositories repositorie;
 	
 	public ApiEntity fromStringRequestToEntity(String textBody) {
 		try {
@@ -48,8 +50,13 @@ public class TextBodyConverterService {
 	
 	@SneakyThrows
 	public void fromUpdateJsonRequestToEntity(ApiEntity entity, ApiEntity objectJson) {	
-		log.info("\n\n Entity Before: {} \n", entity);
-		BeanUtils.copyProperties(objectJson, entity, "logic");
-		log.info("\n\n Entity After: {} \n", entity);
+		try {
+			log.info("\n\n Entity Before: {} \n", entity);
+			BeanUtils.copyProperties(objectJson, entity, "logic");
+			log.info("\n\n Entity After: {} \n", entity);
+		} catch(BeansException e) {
+			throw new ApiDesafioException("Erro na conversão do request Json");
+		}
+		
 	}
 }

@@ -1,8 +1,10 @@
 package com.project.desafio.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -40,18 +42,23 @@ public class ApiTest {
 	}
 	
 	@Test
-	public void expectedBodyConverted() {
+	public void expectedFromStringRequestToEntity() {
 		entity = textBodyConverter.fromStringRequestToEntity("1;a;b;2;c;3;d;4;5;e");
 		assertEquals(Integer.valueOf(2), entity.getSam());
 		assertNotNull(entity);
 	}
 	
 	@Test
-	public void expectedBodyConvertedException() {
+	public void expectedFromStringRequestToEntityException() {
 		assertThrows(ResourceValidationException.class, () -> { textBodyConverter.fromStringRequestToEntity(";a;b;2;c;3;d;4;5;e");});
 	}
 	
-	
+	@Test
+	public void expectedFromUpdateJsonRequestToEntity() {
+		ApiEntity entityTest = new ApiEntity(0,"0","0",0,"0",0,"0",0,0,"0");
+		textBodyConverter.fromUpdateJsonRequestToEntity(entityTest, new ApiEntity(1,"a","b",2,"c",3,"d",4,5,"e"));
+		assertEquals("a", entityTest.getSerial());
+	}
 	
 
 }
